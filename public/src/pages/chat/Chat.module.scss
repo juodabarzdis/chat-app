@@ -1,0 +1,24 @@
+.chat-section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    width: 40em;
+    height: 40em;
+    background-color: $grey-light;
+    padding: 1rem;
+    color: $grey;
+}

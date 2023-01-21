@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Login from "./pages/login/Login";
-import Register from "./pages/register/Register";
-import Chat from "./pages/chat/Chat";
+import Login from "./pages/login";
+import Register from "./pages/register";
+import Chat from "./pages/chat";
 
 function App() {
   return (

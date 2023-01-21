@@ -1,16 +1,23 @@
 import { useState, useEffect } from "react";
 import styles from "./Register.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { registerRoute } from "../../utils/APIRoutes";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     username: "",
     email: "",
     password: "",
     repeatPassword: "",
   });
+
+  useEffect(() => {
+    if (localStorage.getItem("chat-app-user")) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,6 +26,8 @@ const Register = () => {
       .post(registerRoute, form)
       .then((res) => {
         console.log(res);
+        localStorage.setItem("chat-app-user", JSON.stringify(res.data));
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);

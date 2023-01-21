@@ -1,7 +1,7 @@
 import User from "../model/userModel.js";
 import bcrypt from "bcrypt";
 
-export const register = async (req, res, next) => {
+export const register = async (req, res) => {
   const { username, email, password, repeatPassword } = req.body;
   const usernameCheck = await User.findOne({ username });
   if (usernameCheck)
@@ -20,6 +20,43 @@ export const register = async (req, res, next) => {
   try {
     const savedUser = await user.save();
     res.status(201).json(savedUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const login = async (req, res) => {
+  const { username, password } = req.body;
+  const loginUser = await User.findOne({ username });
+  if (!loginUser)
+    return res
+      .status(400)
+      .json({ message: "Username or password is incorrect." });
+  if (!password)
+    return res
+      .status(400)
+      .json({ message: "Username or password is incorrect." });
+  const validPassword = await bcrypt.compare(password, loginUser.password);
+  if (!validPassword)
+    return res
+      .status(400)
+      .json({ message: "Username or password is incorrect." });
+  res.status(200).json({
+    user: {
+      _id: loginUser._id,
+      username: loginUser.username,
+      email: loginUser.email,
+    },
+    message: "Login successful.",
+  });
+};
+
+export const contacts = async (req, res) => {
+  try {
+    const users = await User.find({
+      _id: { $ne: req.params.id },
+    });
+    res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

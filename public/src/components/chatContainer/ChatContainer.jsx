@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./ChatContainer.module.scss";
+import Button from "../button";
 
 const ChatContainer = (props) => {
   const { currentChat } = props;
@@ -17,9 +18,13 @@ const ChatContainer = (props) => {
         </p>
       </div>
       <div className={styles["chat-container__messages"]}></div>
-      <div className={styles["chat-container__input"]}>
-        <input type="text" placeholder="Type a message" />
-        <button>Send</button>
+      <div className={styles["chat-container__input-container"]}>
+        <input
+          className={styles["message-input"]}
+          type="text"
+          placeholder="Type a message"
+        />
+        <Button />
       </div>
     </div>
   );

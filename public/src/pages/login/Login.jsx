@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./Login.module.scss";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import Axios from "axios";
 import { loginRoute } from "../../utils/APIRoutes";
 
 const Login = () => {
@@ -23,8 +23,7 @@ const Login = () => {
     const { username, password } = form;
     e.preventDefault();
 
-    axios
-      .post(loginRoute, { username, password })
+    Axios.post(loginRoute, { username, password })
       .then((res) => {
         localStorage.setItem("chat-app-user", JSON.stringify(res.data.user));
         navigate("/");

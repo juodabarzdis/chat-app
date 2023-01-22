@@ -1,0 +1,16 @@
+.messages {
+    width: 100%;
+    flex: 1 1 auto;
+}
+
+.message--sent {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-bottom: 10px;
+}
+
+.message--received {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}

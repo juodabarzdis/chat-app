@@ -1,9 +1,45 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import Axios from "axios";
+import { addMessageRoute } from "../../utils/APIRoutes";
 import styles from "./ChatContainer.module.scss";
-import Button from "../button";
+import MessageInput from "../messageInput";
+import Messages from "../messages";
+import { getMessagesRoute } from "../../utils/APIRoutes";
 
 const ChatContainer = (props) => {
-  const { currentChat } = props;
+  const { currentChat, currentUser, socket } = props;
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    if (currentChat) {
+      Axios.get(getMessagesRoute, {
+        params: {
+          sender: currentUser._id,
+          receiver: currentChat._id,
+        },
+      })
+        .then((res) => {
+          setMessages(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [currentChat]);
+
+  const handleSendMessage = async (message) => {
+    await Axios.post(addMessageRoute, {
+      message: message,
+      sender: currentUser._id,
+      receiver: currentChat._id,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className={styles["chat-container"]}>
@@ -17,15 +53,12 @@ const ChatContainer = (props) => {
           {currentChat && currentChat.username}
         </p>
       </div>
-      <div className={styles["chat-container__messages"]}></div>
-      <div className={styles["chat-container__input-container"]}>
-        <input
-          className={styles["message-input"]}
-          type="text"
-          placeholder="Type a message"
-        />
-        <Button />
-      </div>
+      <Messages
+        messages={messages}
+        currentChat={currentChat}
+        currentUser={currentUser}
+      />
+      <MessageInput handleSendMessage={handleSendMessage} />
     </div>
   );
 };

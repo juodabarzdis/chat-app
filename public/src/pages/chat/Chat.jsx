@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./Chat.module.scss";
-import axios from "axios";
+import Axios from "axios";
+import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import { contactsRoute } from "../../utils/APIRoutes";
 import Contacts from "../../components/contacts";
@@ -24,8 +25,7 @@ const Chat = () => {
 
   useEffect(() => {
     if (currentUser) {
-      axios
-        .get(contactsRoute + currentUser._id)
+      Axios.get(contactsRoute + currentUser._id)
         .then((res) => {
           setContacts(res.data);
         })
@@ -39,8 +39,6 @@ const Chat = () => {
     setCurrentChat(chat);
   };
 
-  console.log(currentChat);
-
   return (
     <section className={styles["chat-section"]}>
       <div className={styles["chat-container"]}>
@@ -51,7 +49,10 @@ const Chat = () => {
         />
         <div className={styles["chat-messages"]}>
           {currentChat ? (
-            <ChatContainer currentChat={currentChat} />
+            <ChatContainer
+              currentChat={currentChat}
+              currentUser={currentUser}
+            />
           ) : (
             <Welcome currentUser={currentUser} />
           )}

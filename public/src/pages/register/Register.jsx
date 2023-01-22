@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./Register.module.scss";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import Axios from "axios";
 import { registerRoute } from "../../utils/APIRoutes";
 
 const Register = () => {
@@ -22,8 +22,7 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios
-      .post(registerRoute, form)
+    Axios.post(registerRoute, form)
       .then((res) => {
         console.log(res);
         localStorage.setItem("chat-app-user", JSON.stringify(res.data));

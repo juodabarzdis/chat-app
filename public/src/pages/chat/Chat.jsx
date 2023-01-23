@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./Chat.module.scss";
 import Axios from "axios";
-import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import { contactsRoute } from "../../utils/APIRoutes";
 import Contacts from "../../components/contacts";

@@ -36,8 +36,24 @@ const server = app.listen(port, () => {
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST"],
     credentials: true,
   },
+});
+
+global.onlineUsers = new Map();
+
+io.on("connection", (socket) => {
+  global.chatSocket = socket;
+  socket.on("add-user", (userId) => {
+    onlineUsers.set(userId, socket.id);
+  });
+
+  socket.on("send-message", (data) => {
+    const receiver = onlineUsers.get(data.receiver);
+    if (receiver) {
+      io.to(receiver).emit("receive-message", data);
+    }
+  });
 });

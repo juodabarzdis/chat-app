@@ -18,11 +18,9 @@ export const addMessage = async (req, res) => {
 export const getMessages = async (req, res) => {
   try {
     const { sender, receiver } = req.query;
-    console.log(sender, receiver);
     const messages = await Message.find({
       users: { $all: [sender, receiver] },
     });
-    console.log(messages);
     res.status(200).json(messages);
   } catch (error) {
     res.status(500).json({ message: error.message });

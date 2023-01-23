@@ -2,10 +2,10 @@ import React from "react";
 import styles from "./Messages.module.scss";
 import classNames from "classnames";
 import { v4 as uuidv4 } from "uuid";
+import { dateConvert } from "../../utils/dateConvert";
 
 const Messages = (props) => {
   const { messages, currentUser, currentChat } = props;
-  console.log(currentUser);
 
   return (
     <div className={styles.messages}>
@@ -18,15 +18,21 @@ const Messages = (props) => {
           }
           key={uuidv4()}
         >
-          <img
-            className={styles["profile-image"]}
-            src={
-              message.sender === currentUser._id
-                ? currentUser.profilePicture
-                : currentChat.profilePicture
-            }
-            alt="Profile"
-          />
+          <div className={styles["image-container"]}>
+            <img
+              className={styles["profile-image"]}
+              src={
+                message.sender === currentUser._id
+                  ? currentUser.profilePicture
+                  : currentChat.profilePicture
+              }
+              alt="Profile"
+            />
+            <p className={styles["message-time"]}>
+              {/*need to fix this*/}
+              {dateConvert(message.createdAt)}
+            </p>
+          </div>
           <div
             className={
               message.sender === currentUser._id

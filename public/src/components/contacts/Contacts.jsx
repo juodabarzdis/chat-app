@@ -2,6 +2,8 @@ import { useState } from "react";
 import styles from "./Contacts.module.scss";
 import classNames from "classnames";
 
+import ContactsHeading from "../atoms";
+
 const Contacts = ({ contacts, currentUser, chatChange }) => {
   const [currentSelected, setCurrentSelected] = useState(null);
 
@@ -17,9 +19,7 @@ const Contacts = ({ contacts, currentUser, chatChange }) => {
 
   return (
     <div className={styles["contacts-container"]}>
-      <div className={styles["contact"]}>
-        {currentUser && <p>{currentUser.username}</p>}
-      </div>
+      <ContactsHeading />
       {contacts.map((contact) => (
         <div
           className={selectedClass(contact._id)}
@@ -34,6 +34,9 @@ const Contacts = ({ contacts, currentUser, chatChange }) => {
           <p className={styles["contact__name"]}>{contact.username}</p>
         </div>
       ))}
+      <div className={styles["contact"]}>
+        {currentUser && <p>{currentUser.username}</p>}
+      </div>
     </div>
   );
 };

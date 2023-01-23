@@ -25,7 +25,7 @@ const MessageInput = (props) => {
         onChange={(e) => setMessage(e.target.value)}
       />
       <BsEmojiSmile className={styles["message-container__emoji"]} />
-      <Button />
+      <Button icon="send" size="medium" />
     </form>
   );
 };

@@ -7,6 +7,8 @@ import Messages from "../messages";
 import { getMessagesRoute } from "../../utils/APIRoutes";
 import io from "socket.io-client";
 
+import ChatHeader from "../atoms/ChatHeader";
+
 const ChatContainer = (props) => {
   const { currentChat, currentUser } = props;
   const [messages, setMessages] = useState([]);
@@ -82,16 +84,7 @@ const ChatContainer = (props) => {
 
   return (
     <div className={styles["chat-container"]}>
-      <div className={styles["chat-heading"]}>
-        <img
-          src="https://www.w3schools.com/howto/img_avatar.png"
-          alt="Avatar"
-          className={styles["chat-heading__avatar"]}
-        />
-        <p className={styles["chat-heading__header"]}>
-          {currentChat && currentChat.username}
-        </p>
-      </div>
+      <ChatHeader currentChat={currentChat} />
       <Messages
         messages={messages}
         currentChat={currentChat}

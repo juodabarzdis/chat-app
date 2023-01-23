@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./Contacts.module.scss";
 import classNames from "classnames";
 
-import ContactsHeading from "../atoms";
+import ContactsHeader from "../atoms/ContactsHeader";
 
 const Contacts = ({ contacts, currentUser, chatChange }) => {
   const [currentSelected, setCurrentSelected] = useState(null);
@@ -17,9 +17,11 @@ const Contacts = ({ contacts, currentUser, chatChange }) => {
       [styles["contact--selected"]]: id === currentSelected,
     });
 
+  console.log(contacts);
+
   return (
     <div className={styles["contacts-container"]}>
-      <ContactsHeading />
+      <ContactsHeader />
       {contacts.map((contact) => (
         <div
           className={selectedClass(contact._id)}
@@ -27,16 +29,16 @@ const Contacts = ({ contacts, currentUser, chatChange }) => {
           onClick={() => handleChatChange(contact._id, contact)}
         >
           <img
-            src="https://www.w3schools.com/howto/img_avatar.png"
+            src={contact.profilePicture}
             alt="Avatar"
             className={styles["contact__avatar"]}
           />
           <p className={styles["contact__name"]}>{contact.username}</p>
         </div>
       ))}
-      <div className={styles["contact"]}>
+      {/* <div className={styles["contact"]}>
         {currentUser && <p>{currentUser.username}</p>}
-      </div>
+      </div> */}
     </div>
   );
 };

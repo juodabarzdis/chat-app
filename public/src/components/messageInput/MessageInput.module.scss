@@ -5,6 +5,7 @@
     height: 4rem;
     flex: 0 0 auto;
     width: 100%;
+    margin-top: 0.5rem;
     padding: 0.5rem;
     background-color: $grey-medium;
 
@@ -33,6 +34,8 @@
         padding: 1rem 0.5rem;
         color: $grey;
         background-color: $grey-medium;
+        font-family: "Rubik", sans-serif;
+        font-size: 1rem;
 
         &:focus {
             outline: none;

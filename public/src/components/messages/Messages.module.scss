@@ -1,19 +1,65 @@
-.messages {
-    width: 100%;
-    flex: 1 1 auto;
-    overflow: hidden;
-    overflow-y: auto;
+.message-wrapper--sent {
+    display: flex;
+    align-items: center;
+    margin-inline: 1rem;
+    flex-direction: row-reverse;
 
+    &__image {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+    }
+}
+
+.message-wrapper--received {
+    display: flex;
+    align-items: center;
+    margin-inline: 1rem;
+}
+
+.profile-image {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+}
+
+.messages {
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    overflow-y: auto;
 }
 
 .message--sent {
     display: flex;
     flex-direction: row-reverse;
-    margin-bottom: 10px;
+    align-self: flex-end;
+    margin: 0.2rem 1rem;
+    background-color: $theme;
+    color: $white;
+    padding: 1rem;
+    padding-bottom: 0;
+    width: fit-content;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    margin-left: auto;
 }
 
 .message--received {
     display: flex;
-    flex-direction: row;
-    margin-bottom: 10px;
+    align-self: flex-end;
+    margin: 0.2rem 1rem;
+    background-color: $grey-medium;
+    color: $grey;
+    padding: 1rem;
+    padding-bottom: 0;
+    width: fit-content;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    margin-right: auto;
 }

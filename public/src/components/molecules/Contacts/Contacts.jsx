@@ -8,9 +8,12 @@ import ContactItem from "../../atoms/ContactItem";
 const Contacts = ({ contacts, currentUser, chatChange, handleOpenInfo }) => {
   const [selectedContact, setSelectedContact] = useState(null);
   const [onlineContacts, setOnlineContacts] = useState([]);
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const socket = useContext(SocketContext);
 
   contacts = contacts.filter((contact) => contact._id !== currentUser._id);
+  contacts = search.length > 0 ? searchResults : contacts;
 
   const handleChatChange = (index, contact) => {
     setSelectedContact(index);
@@ -25,7 +28,12 @@ const Contacts = ({ contacts, currentUser, chatChange, handleOpenInfo }) => {
 
   return (
     <div className={styles["contacts-container"]}>
-      <ContactsHeader handleOpenInfo={handleOpenInfo} />
+      <ContactsHeader
+        handleOpenInfo={handleOpenInfo}
+        setSearchResults={setSearchResults}
+        setSearch={setSearch}
+        search={search}
+      />
       <ul>
         {contacts.map((contact) => (
           <li key={contact._id}>

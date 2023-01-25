@@ -60,3 +60,16 @@ export const users = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const search = async (req, res) => {
+  const { username } = req.query;
+  console.log(username);
+  try {
+    const users = await User.find({
+      username: { $regex: username, $options: "i" },
+    });
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

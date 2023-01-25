@@ -4,3 +4,4 @@ export const loginRoute = `${host}/api/auth/login`;
 export const usersRoute = `${host}/api/auth/all-users/`;
 export const addMessageRoute = `${host}/api/messages/add`;
 export const getMessagesRoute = `${host}/api/messages/get`;
+export const searchRoute = `${host}/api/auth/all-users/search/`;

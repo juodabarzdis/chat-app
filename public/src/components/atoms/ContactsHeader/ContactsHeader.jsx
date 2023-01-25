@@ -1,11 +1,34 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import Axios from "axios";
 import styles from "./ContactsHeader.module.scss";
-
+import { searchRoute } from "../../../utils/APIRoutes";
+import Button from "../Button";
 import { FaSearch } from "react-icons/fa";
 
-import Button from "../Button";
+const ContactsHeader = ({
+  handleOpenInfo,
+  search,
+  setSearch,
+  setSearchResults,
+}) => {
+  useEffect(() => {
+    try {
+      Axios.get(searchRoute, {
+        params: {
+          username: search,
+        },
+      }).then((res) => {
+        setSearchResults(res.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, [search]);
 
-const ContactsHeader = ({ handleOpenInfo }) => {
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
   return (
     <div className={styles["header-container"]}>
       <div className={styles.top}>
@@ -15,13 +38,15 @@ const ContactsHeader = ({ handleOpenInfo }) => {
           <Button icon="dots" />
         </div>
       </div>
-      <form className={styles.search}>
+      <form className={styles.search} type="submit">
         <FaSearch className={styles["search__icon"]} />
         <input
           className={styles["search__input"]}
           type="text"
           placeholder="Search Here..."
           name="search"
+          value={search}
+          onChange={handleSearch}
         />
       </form>
       <div className={styles["icons-row"]}>

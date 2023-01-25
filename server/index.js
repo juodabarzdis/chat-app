@@ -48,10 +48,18 @@ io.on("connection", (socket) => {
   global.chatSocket = socket;
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);
+    console.log(onlineUsers);
   });
 
-  const onlineClietns = [...onlineUsers.keys()];
-  socket.emit("online-users", onlineClietns);
+  const onlineClients = [...onlineUsers.keys()];
+  socket.emit("online-users", onlineClients);
+
+  socket.on("send-message", (data) => {
+    const receiver = onlineUsers.get(data.receiver);
+    if (receiver) {
+      io.to(receiver).emit("receive-message", data);
+    }
+  });
 
   socket.on("disconnect", () => {
     onlineUsers.forEach((value, key) => {
@@ -59,14 +67,5 @@ io.on("connection", (socket) => {
         onlineUsers.delete(key);
       }
     });
-  });
-
-  console.log(onlineClietns);
-
-  socket.on("send-message", (data) => {
-    const receiver = onlineUsers.get(data.receiver);
-    if (receiver) {
-      io.to(receiver).emit("receive-message", data);
-    }
   });
 });

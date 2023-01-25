@@ -19,6 +19,10 @@
         align-items: center;
         gap: 0.5rem;
     }
+
+    @media screen and (max-width: 768px) {
+        margin-right: 2.8rem;
+    }
 }
 
 .search {

@@ -9,11 +9,18 @@ const ContactItem = (props) => {
     onClickHandler,
     profilePicture,
     username,
+    onlineContacts,
   } = props;
 
   const selectedClass = (id) =>
     classNames(styles.contact, {
       [styles["contact--selected"]]: id === selectedContact,
+    });
+
+  const onlineClass = (id) =>
+    classNames(styles["picture-container__status"], {
+      [styles["picture-container__status--online"]]:
+        onlineContacts.includes(id),
     });
 
   return (
@@ -24,7 +31,7 @@ const ContactItem = (props) => {
           alt="Avatar"
           className={styles["picture-container__avatar"]}
         />
-        <div className={styles["picture-container__status"]}></div>
+        <div className={onlineClass(contactId)}></div>
       </div>
       <p className={styles["contact__name"]}>{username}</p>
     </div>

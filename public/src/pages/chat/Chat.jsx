@@ -1,12 +1,13 @@
-import { useState, useEffect, useRef } from "react";
-import styles from "./Chat.module.scss";
+import { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import classNames from "classnames";
+import styles from "./Chat.module.scss";
 import { useNavigate } from "react-router-dom";
 import { usersRoute } from "../../utils/APIRoutes";
-import Contacts from "../../components/molecules/contacts";
-import Welcome from "../../components/atoms/welcome";
-import ChatContainer from "../../components/organisms/chatContainer";
+import { SocketContext, SocketProvider } from "../../context/socketContext";
+import Contacts from "../../components/molecules/Contacts";
+import Welcome from "../../components/atoms/Welcome";
+import ChatContainer from "../../components/organisms/ChatContainer";
 import UserInfo from "../../components/molecules/UserInfo";
 import Burger from "../../components/atoms/Burger";
 
@@ -17,6 +18,14 @@ const Chat = () => {
   const [openInfo, setOpenInfo] = useState(false);
   const [openContacts, setOpenContacts] = useState(false);
   const navigate = useNavigate();
+
+  const socket = useContext(SocketContext);
+
+  useEffect(() => {
+    if (currentUser) {
+      socket.emit("add-user", currentUser._id);
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     if (!localStorage.getItem("chat-app-user")) {
@@ -41,6 +50,7 @@ const Chat = () => {
 
   const handlechatChange = (chat) => {
     setCurrentChat(chat);
+    setOpenContacts(false);
   };
 
   const handleOpenInfo = () => {
@@ -63,7 +73,10 @@ const Chat = () => {
     <section className={styles["chat-section"]}>
       <div className={styles["chat-container"]}>
         <div className={styles["chat-container__burger"]}>
-          <Burger handleOpenContacts={handleOpenContacts} />
+          <Burger
+            handleOpenContacts={handleOpenContacts}
+            openContacts={openContacts}
+          />
         </div>
         <div className={pl}>
           <Contacts
@@ -78,6 +91,7 @@ const Chat = () => {
             <ChatContainer
               currentChat={currentChat}
               currentUser={currentUser}
+              handleOpenInfo={handleOpenInfo}
             />
           ) : (
             <Welcome currentUser={currentUser} />

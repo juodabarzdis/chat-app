@@ -1,9 +1,15 @@
+import classNames from "classnames";
 import React from "react";
 import styles from "./Burger.module.scss";
 
-const Burger = ({ handleOpenContacts }) => {
+const Burger = ({ handleOpenContacts, openContacts }) => {
+  console.log(openContacts);
+  const burgerClass = classNames(styles.burger, {
+    [styles["burger--open"]]: openContacts,
+  });
+
   return (
-    <button className={styles.burger} onClick={handleOpenContacts}>
+    <button className={burgerClass} onClick={handleOpenContacts}>
       <span className={styles.burger__line}></span>
       <span className={styles.burger__line}></span>
       <span className={styles.burger__line}></span>

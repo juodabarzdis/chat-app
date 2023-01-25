@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import Axios from "axios";
 import styles from "./Contacts.module.scss";
+import { SocketContext } from "../../../context/socketContext";
 import ContactsHeader from "../../atoms/ContactsHeader";
 import ContactItem from "../../atoms/ContactItem";
 
 const Contacts = ({ contacts, currentUser, chatChange, handleOpenInfo }) => {
   const [selectedContact, setSelectedContact] = useState(null);
+  const [onlineContacts, setOnlineContacts] = useState([]);
+  const socket = useContext(SocketContext);
+
   contacts = contacts.filter((contact) => contact._id !== currentUser._id);
 
   const handleChatChange = (index, contact) => {
@@ -12,24 +17,29 @@ const Contacts = ({ contacts, currentUser, chatChange, handleOpenInfo }) => {
     chatChange(contact);
   };
 
-  // const onlineClass = (id) =>
-  //   classNames(styles["picture-container__status"], {
-  //     [styles["picture-container__status--online"]]: onlineUsers.includes(id),
-  //   });
+  useEffect(() => {
+    socket.on("online-users", (users) => {
+      setOnlineContacts(users);
+    });
+  }, [socket]);
 
   return (
     <div className={styles["contacts-container"]}>
       <ContactsHeader handleOpenInfo={handleOpenInfo} />
-      {contacts.map((contact) => (
-        <ContactItem
-          selectedContact={selectedContact}
-          contactId={contact._id}
-          onClickHandler={() => handleChatChange(contact._id, contact)}
-          profilePicture={contact.profilePicture}
-          username={contact.username}
-          key={contact._id}
-        />
-      ))}
+      <ul>
+        {contacts.map((contact) => (
+          <li key={contact._id}>
+            <ContactItem
+              selectedContact={selectedContact}
+              contactId={contact._id}
+              onClickHandler={() => handleChatChange(contact._id, contact)}
+              profilePicture={contact.profilePicture}
+              username={contact.username}
+              onlineContacts={onlineContacts}
+            />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

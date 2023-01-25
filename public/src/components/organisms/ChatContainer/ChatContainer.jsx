@@ -1,25 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Axios from "axios";
-import io from "socket.io-client";
 import styles from "./ChatContainer.module.scss";
 import { addMessageRoute, getMessagesRoute } from "../../../utils/APIRoutes";
+import { SocketContext } from "../../../context/socketContext";
 
 import MessageInput from "../../atoms/MessageInput";
-import Messages from "../../molecules/messages";
+import Messages from "../../molecules/Messages";
 import ChatHeader from "../../atoms/ChatHeader";
 
 const ChatContainer = (props) => {
-  const { currentChat, currentUser } = props;
+  const { currentChat, currentUser, handleOpenInfo } = props;
   const [messages, setMessages] = useState([]);
   const [receivedMessages, setReceivedMessages] = useState(null);
-
-  const socket = io("http://localhost:5000");
-
-  useEffect(() => {
-    if (currentUser) {
-      socket.emit("add-user", currentUser._id);
-    }
-  }, [currentUser]);
+  const socket = useContext(SocketContext);
 
   useEffect(() => {
     if (currentChat) {
@@ -84,7 +77,7 @@ const ChatContainer = (props) => {
 
   return (
     <div className={styles["chat-container"]}>
-      <ChatHeader currentChat={currentChat} />
+      <ChatHeader currentChat={currentChat} handleOpenInfo={handleOpenInfo} />
       <Messages
         messages={messages}
         currentChat={currentChat}

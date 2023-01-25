@@ -1,18 +1,23 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
+import { SocketProvider, SocketContext } from "./context/socketContext";
 
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Chat from "./pages/chat";
 
 function App() {
+  const socket = useContext(SocketContext);
+
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Chat />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
+      <SocketProvider socket={socket}>
+        <Routes>
+          <Route path="/" element={<Chat />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </SocketProvider>
     </div>
   );
 }

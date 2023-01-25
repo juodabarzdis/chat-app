@@ -3,7 +3,7 @@ import styles from "./ContactsHeader.module.scss";
 
 import { FaSearch } from "react-icons/fa";
 
-import Button from "../../button";
+import Button from "../Button";
 
 const ContactsHeader = ({ handleOpenInfo }) => {
   return (

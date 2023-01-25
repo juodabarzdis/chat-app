@@ -3,10 +3,10 @@ import styles from "./Chat.module.scss";
 import Axios from "axios";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
-import { contactsRoute } from "../../utils/APIRoutes";
-import Contacts from "../../components/contacts";
-import Welcome from "../../components/welcome";
-import ChatContainer from "../../components/chatContainer";
+import { usersRoute } from "../../utils/APIRoutes";
+import Contacts from "../../components/molecules/contacts";
+import Welcome from "../../components/atoms/welcome";
+import ChatContainer from "../../components/organisms/chatContainer";
 import UserInfo from "../../components/molecules/UserInfo";
 import Burger from "../../components/atoms/Burger";
 
@@ -29,7 +29,7 @@ const Chat = () => {
 
   useEffect(() => {
     if (currentUser) {
-      Axios.get(contactsRoute + currentUser._id)
+      Axios.get(usersRoute)
         .then((res) => {
           setContacts(res.data);
         })

@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import Axios from "axios";
-import { addMessageRoute } from "../../../utils/APIRoutes";
+import io from "socket.io-client";
 import styles from "./ChatContainer.module.scss";
+import { addMessageRoute, getMessagesRoute } from "../../../utils/APIRoutes";
+
 import MessageInput from "../../atoms/MessageInput";
 import Messages from "../../molecules/messages";
-import { getMessagesRoute } from "../../../utils/APIRoutes";
-import io from "socket.io-client";
-import { dateConvert } from "../../../utils/dateConvert";
-
 import ChatHeader from "../../atoms/ChatHeader";
 
 const ChatContainer = (props) => {

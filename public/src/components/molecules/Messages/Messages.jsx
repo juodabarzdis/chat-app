@@ -2,8 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import styles from "./Messages.module.scss";
 import classNames from "classnames";
 import { v4 as uuidv4 } from "uuid";
-import { dateConvert } from "../../utils/dateConvert";
-import { motion } from "framer-motion";
+import { dateConvert } from "../../../utils/dateConvert";
 
 const Messages = (props) => {
   const { messages, currentUser, currentChat } = props;

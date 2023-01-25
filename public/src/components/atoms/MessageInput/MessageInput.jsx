@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "../button";
+import Button from "../Button";
 import styles from "./MessageInput.module.scss";
 import { BsEmojiSmile } from "react-icons/bs";
 

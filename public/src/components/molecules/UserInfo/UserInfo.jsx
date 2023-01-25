@@ -7,7 +7,7 @@ import {
   FaArrowLeft,
 } from "react-icons/fa";
 
-const UserInfo = ({ currentChat, handleOpenInfo }) => {
+const UserInfo = ({ currentChat, handleOpenInfo, currentUser }) => {
   return (
     <div className={styles["info-container"]}>
       <div
@@ -17,8 +17,15 @@ const UserInfo = ({ currentChat, handleOpenInfo }) => {
         <FaArrowLeft />
       </div>
       <div className={styles["info-container__header"]}>
-        <img src={currentChat && currentChat.profilePicture} alt="Profile" />
-        <h3>{currentChat && currentChat.username}</h3>
+        <img
+          src={
+            currentChat
+              ? currentChat.profilePicture
+              : currentUser?.profilePicture
+          }
+          alt="Profile"
+        />
+        <h3>{currentChat ? currentChat.username : currentUser?.username}</h3>
         <p>Lorem ipsum dolor sit amet.</p>
       </div>
       <div className={styles.contacts}>

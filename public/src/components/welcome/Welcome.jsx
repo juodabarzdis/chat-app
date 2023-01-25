@@ -5,10 +5,12 @@ const Welcome = (props) => {
   const { currentUser } = props;
 
   return (
-    <>
-      <p>Welcome {currentUser && currentUser.username}!</p>
-      <p>You can start chatting. Select user.</p>
-    </>
+    <div className={styles["welcome-container"]}>
+      <div className={styles["welcome-container__content"]}>
+        <p>Welcome {currentUser && currentUser.username}!</p>
+        <p>Select user to chat.</p>
+      </div>
+    </div>
   );
 };
 

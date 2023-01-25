@@ -50,6 +50,19 @@ io.on("connection", (socket) => {
     onlineUsers.set(userId, socket.id);
   });
 
+  const onlineClietns = [...onlineUsers.keys()];
+  socket.emit("online-users", onlineClietns);
+
+  socket.on("disconnect", () => {
+    onlineUsers.forEach((value, key) => {
+      if (value === socket.id) {
+        onlineUsers.delete(key);
+      }
+    });
+  });
+
+  console.log(onlineClietns);
+
   socket.on("send-message", (data) => {
     const receiver = onlineUsers.get(data.receiver);
     if (receiver) {

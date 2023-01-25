@@ -1,11 +1,12 @@
 .header-container {
-    margin-inline: 1.5rem;
+    margin: 1rem 1.5rem 0 1.5rem;
 }
 
 .top {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 1rem;
 
     &__title {
         color: $white;

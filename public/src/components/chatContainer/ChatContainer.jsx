@@ -6,6 +6,7 @@ import MessageInput from "../messageInput";
 import Messages from "../messages";
 import { getMessagesRoute } from "../../utils/APIRoutes";
 import io from "socket.io-client";
+import { dateConvert } from "../../utils/dateConvert";
 
 import ChatHeader from "../atoms/ChatHeader";
 
@@ -54,13 +55,15 @@ const ChatContainer = (props) => {
       receiver: currentChat._id,
     });
 
-    const newMessage = [...messages];
-    newMessage.push({
-      message: { text: message },
-      sender: currentUser._id,
-      receiver: currentChat._id,
-    });
-    setMessages(newMessage);
+    setMessages([
+      ...messages,
+      {
+        message: { text: message },
+        sender: currentUser._id,
+        receiver: currentChat._id,
+        createdAt: new Date(),
+      },
+    ]);
   };
 
   //setting an event listener for receiving messages
@@ -70,15 +73,14 @@ const ChatContainer = (props) => {
         message: { text: data.message },
         sender: data.sender,
         receiver: data.receiver,
+        createdAt: new Date(),
       });
     });
   }, []);
 
   useEffect(() => {
     if (receivedMessages) {
-      const newMessage = [...messages];
-      newMessage.push(receivedMessages);
-      setMessages(newMessage);
+      setMessages([...messages, receivedMessages]);
     }
   }, [receivedMessages]);
 

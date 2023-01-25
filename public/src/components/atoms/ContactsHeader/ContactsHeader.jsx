@@ -5,7 +5,7 @@ import { FaSearch } from "react-icons/fa";
 
 import Button from "../../button";
 
-const ContactsHeader = () => {
+const ContactsHeader = ({ handleOpenInfo }) => {
   return (
     <div className={styles["header-container"]}>
       <div className={styles.top}>
@@ -28,7 +28,7 @@ const ContactsHeader = () => {
         <Button icon="history" />
         <Button icon="friends" />
         <Button icon="addressBook" />
-        <Button icon="folder" />
+        <Button icon="folder" onClick={handleOpenInfo} />
       </div>
     </div>
   );

@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Contacts.module.scss";
 import classNames from "classnames";
-
 import ContactsHeader from "../atoms/ContactsHeader";
 
-const Contacts = ({ contacts, currentUser, chatChange }) => {
+const Contacts = ({ contacts, currentUser, chatChange, handleOpenInfo }) => {
   const [currentSelected, setCurrentSelected] = useState(null);
 
   const handleChatChange = (index, contact) => {
@@ -17,28 +16,31 @@ const Contacts = ({ contacts, currentUser, chatChange }) => {
       [styles["contact--selected"]]: id === currentSelected,
     });
 
-  console.log(contacts);
+  // const onlineClass = (id) =>
+  //   classNames(styles["picture-container__status"], {
+  //     [styles["picture-container__status--online"]]: onlineUsers.includes(id),
+  //   });
 
   return (
     <div className={styles["contacts-container"]}>
-      <ContactsHeader />
+      <ContactsHeader handleOpenInfo={handleOpenInfo} />
       {contacts.map((contact) => (
         <div
           className={selectedClass(contact._id)}
           key={contact._id}
           onClick={() => handleChatChange(contact._id, contact)}
         >
-          <img
-            src={contact.profilePicture}
-            alt="Avatar"
-            className={styles["contact__avatar"]}
-          />
+          <div className={styles["picture-container"]}>
+            <img
+              src={contact.profilePicture}
+              alt="Avatar"
+              className={styles["picture-container__avatar"]}
+            />
+            <div className={styles["picture-container__status"]}></div>
+          </div>
           <p className={styles["contact__name"]}>{contact.username}</p>
         </div>
       ))}
-      {/* <div className={styles["contact"]}>
-        {currentUser && <p>{currentUser.username}</p>}
-      </div> */}
     </div>
   );
 };

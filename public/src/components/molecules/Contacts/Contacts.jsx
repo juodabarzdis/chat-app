@@ -5,7 +5,12 @@ import { SocketContext } from "../../../context/socketContext";
 import ContactsHeader from "../../atoms/ContactsHeader";
 import ContactItem from "../../atoms/ContactItem";
 
-const Contacts = ({ contacts, currentUser, chatChange, handleOpenInfo }) => {
+const Contacts = ({
+  contacts,
+  currentUser,
+  chatChange,
+  handleSelectedUser,
+}) => {
   const [selectedContact, setSelectedContact] = useState(null);
   const [onlineContacts, setOnlineContacts] = useState([]);
   const [search, setSearch] = useState("");
@@ -29,7 +34,7 @@ const Contacts = ({ contacts, currentUser, chatChange, handleOpenInfo }) => {
   return (
     <div className={styles["contacts-container"]}>
       <ContactsHeader
-        handleOpenInfo={handleOpenInfo}
+        handleSelectedUser={handleSelectedUser}
         setSearchResults={setSearchResults}
         setSearch={setSearch}
         search={search}

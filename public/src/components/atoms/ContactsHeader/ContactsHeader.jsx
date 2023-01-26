@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Axios from "axios";
 import styles from "./ContactsHeader.module.scss";
 import { searchRoute } from "../../../utils/APIRoutes";
@@ -6,7 +6,7 @@ import Button from "../Button";
 import { FaSearch } from "react-icons/fa";
 
 const ContactsHeader = ({
-  handleOpenInfo,
+  handleSelectedUser,
   search,
   setSearch,
   setSearchResults,
@@ -53,7 +53,15 @@ const ContactsHeader = ({
         <Button icon="history" />
         <Button icon="friends" />
         <Button icon="addressBook" />
-        <Button icon="folder" onClick={handleOpenInfo} />
+        <Button
+          icon="folder"
+          onClick={() =>
+            handleSelectedUser(
+              localStorage.getItem("chat-app-user") &&
+                JSON.parse(localStorage.getItem("chat-app-user"))._id
+            )
+          }
+        />
       </div>
     </div>
   );

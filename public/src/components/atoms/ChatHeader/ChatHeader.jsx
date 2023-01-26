@@ -1,12 +1,11 @@
-import React from "react";
 import styles from "./ChatHeader.module.scss";
 
-const ChatHeader = ({ currentChat, handleOpenInfo }) => {
+const ChatHeader = ({ currentChat, handleSelectedUser }) => {
   return (
     <div className={styles["chat-header"]}>
       <button
         className={styles["chat-header__avatar-button"]}
-        onClick={handleOpenInfo}
+        onClick={() => handleSelectedUser(currentChat._id)}
       >
         <img
           src={currentChat.profilePicture}

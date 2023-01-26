@@ -7,39 +7,32 @@ import {
   FaArrowLeft,
 } from "react-icons/fa";
 
-const UserInfo = ({ currentChat, handleOpenInfo, currentUser }) => {
+const UserInfo = ({ selectedUser, handleInfo }) => {
   return (
     <div className={styles["info-container"]}>
-      <div
-        className={styles["info-container__return"]}
-        onClick={handleOpenInfo}
-      >
+      <div className={styles["info-container__return"]} onClick={handleInfo}>
         <FaArrowLeft />
       </div>
       <div className={styles["info-container__header"]}>
         <img
-          src={
-            currentChat
-              ? currentChat.profilePicture
-              : currentUser?.profilePicture
-          }
+          src={selectedUser ? selectedUser.profilePicture : ""}
           alt="Profile"
         />
-        <h3>{currentChat ? currentChat.username : currentUser?.username}</h3>
+        <h3>{selectedUser && selectedUser.username}</h3>
         <p>Lorem ipsum dolor sit amet.</p>
       </div>
       <div className={styles.contacts}>
         <div className={styles["contacts__item"]}>
           <FaMapMarkedAlt />
-          <p>{currentChat?.location ? currentChat.location : "Lithuania"}</p>
+          <p>{selectedUser?.location ? selectedUser.location : "Lithuania"}</p>
         </div>
         <div className={styles["contacts__item"]}>
           <FaMobileAlt />
-          <p>{currentChat?.phone ? currentChat.phone : "123456789"}</p>
+          <p>{selectedUser?.phone ? selectedUser.phone : "123456789"}</p>
         </div>
         <div className={styles["contacts__item"]}>
           <FaRegEnvelope />
-          <p>{currentChat?.email ? currentChat.email : "email@mail.com"}</p>
+          <p>{selectedUser?.email ? selectedUser.email : "email@mail.com"}</p>
         </div>
       </div>
     </div>

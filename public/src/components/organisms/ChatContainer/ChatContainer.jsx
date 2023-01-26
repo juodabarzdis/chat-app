@@ -9,7 +9,7 @@ import Messages from "../../molecules/Messages";
 import ChatHeader from "../../atoms/ChatHeader";
 
 const ChatContainer = (props) => {
-  const { currentChat, currentUser, handleOpenInfo } = props;
+  const { currentChat, currentUser, handleSelectedUser } = props;
   const [messages, setMessages] = useState([]);
   const [receivedMessages, setReceivedMessages] = useState(null);
   const socket = useContext(SocketContext);
@@ -77,7 +77,10 @@ const ChatContainer = (props) => {
 
   return (
     <div className={styles["chat-container"]}>
-      <ChatHeader currentChat={currentChat} handleOpenInfo={handleOpenInfo} />
+      <ChatHeader
+        currentChat={currentChat}
+        handleSelectedUser={handleSelectedUser}
+      />
       <Messages
         messages={messages}
         currentChat={currentChat}

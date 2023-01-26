@@ -17,6 +17,7 @@ const Chat = () => {
   const [currentChat, setCurrentChat] = useState(null);
   const [openInfo, setOpenInfo] = useState(false);
   const [openContacts, setOpenContacts] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
   const navigate = useNavigate();
 
   const socket = useContext(SocketContext);
@@ -53,7 +54,15 @@ const Chat = () => {
     setOpenContacts(false);
   };
 
-  const handleOpenInfo = () => {
+  const handleSelectedUser = (id) => {
+    setOpenInfo(!openInfo);
+    if (id) {
+      const user = contacts.find((contact) => contact._id === id);
+      return setSelectedUser(user);
+    }
+  };
+
+  const handleInfo = () => {
     setOpenInfo(!openInfo);
   };
 
@@ -83,7 +92,8 @@ const Chat = () => {
             contacts={contacts}
             currentUser={currentUser}
             chatChange={handlechatChange}
-            handleOpenInfo={handleOpenInfo}
+            handleInfo={handleInfo}
+            handleSelectedUser={handleSelectedUser}
           />
         </div>
         <div className={styles["chat-messages"]}>
@@ -91,18 +101,14 @@ const Chat = () => {
             <ChatContainer
               currentChat={currentChat}
               currentUser={currentUser}
-              handleOpenInfo={handleOpenInfo}
+              handleSelectedUser={handleSelectedUser}
             />
           ) : (
             <Welcome currentUser={currentUser} />
           )}
         </div>
         <div className={cl}>
-          <UserInfo
-            currentChat={currentChat}
-            currentUser={currentUser}
-            handleOpenInfo={handleOpenInfo}
-          />
+          <UserInfo selectedUser={selectedUser} handleInfo={handleInfo} />
         </div>
       </div>
     </section>

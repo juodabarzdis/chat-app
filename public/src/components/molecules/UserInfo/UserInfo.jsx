@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./UserInfo.module.scss";
+import EmptyAvatar from "../../../assets/empty-avatar.jpg";
 import {
   FaMapMarkedAlt,
   FaMobileAlt,
@@ -16,10 +17,16 @@ const UserInfo = ({ selectedUser, handleInfo }) => {
       </div>
       <div className={styles["info-container__header"]}>
         <img
-          src={selectedUser ? selectedUser.profilePicture : ""}
+          src={
+            selectedUser?.profilePicture
+              ? selectedUser.profilePicture
+              : EmptyAvatar
+          }
           alt="Profile"
         />
-        <h3>{selectedUser && selectedUser.username}</h3>
+        <h3>
+          {selectedUser && selectedUser.firstName + " " + selectedUser.lastName}
+        </h3>
         <p>Lorem ipsum dolor sit amet.</p>
       </div>
       <div className={styles.contacts}>

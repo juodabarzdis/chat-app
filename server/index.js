@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import bodyParser from "body-parser";
+
 import { Server } from "socket.io";
 
 import userRoutes from "./routes/userRoutes.js";
@@ -16,6 +18,9 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/auth", userRoutes);
 app.use("/api/messages", messageRoutes);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.set("strictQuery", false);
 mongoose
@@ -48,7 +53,6 @@ io.on("connection", (socket) => {
   global.chatSocket = socket;
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);
-    console.log(onlineUsers);
   });
 
   const onlineClients = [...onlineUsers.keys()];

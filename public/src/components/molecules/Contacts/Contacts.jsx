@@ -18,7 +18,7 @@ const Contacts = ({
   const [searchResults, setSearchResults] = useState([]);
   const socket = useContext(SocketContext);
 
-  contacts = contacts.filter((contact) => contact._id !== currentUser._id);
+  contacts = contacts.filter((contact) => contact._id !== currentUser.id);
   contacts = search.length > 0 ? searchResults : contacts;
 
   const handleChatChange = (index, contact) => {
@@ -47,6 +47,7 @@ const Contacts = ({
       <ContactsHeader
         handleSelectedUser={handleSelectedUser}
         setSearchResults={setSearchResults}
+        currentUser={currentUser}
         setSearch={setSearch}
         search={search}
       />
@@ -55,10 +56,8 @@ const Contacts = ({
           <li key={contact._id}>
             <ContactItem
               selectedContact={selectedContact}
-              contactId={contact._id}
+              contact={contact}
               onClickHandler={() => handleChatChange(contact._id, contact)}
-              profilePicture={contact.profilePicture}
-              username={contact.username}
               onlineContacts={onlineContacts}
             />
           </li>

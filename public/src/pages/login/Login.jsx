@@ -3,14 +3,13 @@ import styles from "./Login.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { loginRoute } from "../../utils/APIRoutes";
+import Button from "../../components/atoms/Button";
 
 const Login = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
-    username: "",
     email: "",
     password: "",
-    repeatPassword: "",
   });
 
   useEffect(() => {
@@ -20,10 +19,10 @@ const Login = () => {
   }, [navigate]);
 
   const handleSubmit = (e) => {
-    const { username, password } = form;
+    const { email, password } = form;
     e.preventDefault();
 
-    Axios.post(loginRoute, { username, password })
+    Axios.post(loginRoute, { email, password })
       .then((res) => {
         localStorage.setItem("chat-app-user", JSON.stringify(res.data.user));
         navigate("/");
@@ -41,26 +40,25 @@ const Login = () => {
   return (
     <div className={styles.section}>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="email">User E-mail</label>
         <input
           type="text"
-          id="username"
-          name="username"
-          placeholder="Username"
+          id="email"
+          name="email"
+          placeholder="Enter your email..."
           onChange={handleInputChange}
         />
-
         <label htmlFor="password">Password</label>
         <input
           type="password"
           id="password"
           name="password"
-          placeholder="Password"
+          placeholder="Enter your password..."
           onChange={handleInputChange}
         />
-        <button type="submit">Login</button>
-        <span>
-          Don't have an account? <Link to="/register">Login</Link>
+        <Button theme="text">Login</Button>
+        <span className={styles["form__span"]}>
+          Don't have an account? <Link to="/register">Register.</Link>
         </span>
       </form>
     </div>

@@ -9,8 +9,6 @@
     border: none;
     transition: background-color 0.2s ease-in-out;
 
-
-
     &--medium {
         min-width: 2.8rem;
         min-height: 2.8rem;
@@ -36,6 +34,7 @@
         color: $white;
         background-color: $theme-light;
         width: 100%;
+        font-size: 1rem;
     }
 
     &:hover {

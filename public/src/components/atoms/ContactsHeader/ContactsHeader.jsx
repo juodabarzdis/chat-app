@@ -10,14 +10,16 @@ const ContactsHeader = ({
   search,
   setSearch,
   setSearchResults,
+  currentUser,
 }) => {
   useEffect(() => {
     try {
       Axios.get(searchRoute, {
         params: {
-          username: search,
+          search,
         },
       }).then((res) => {
+        console.log(res.data);
         setSearchResults(res.data);
       });
     } catch (error) {
@@ -55,12 +57,7 @@ const ContactsHeader = ({
         <Button icon="addressBook" />
         <Button
           icon="folder"
-          onClick={() =>
-            handleSelectedUser(
-              localStorage.getItem("chat-app-user") &&
-                JSON.parse(localStorage.getItem("chat-app-user"))._id
-            )
-          }
+          onClick={() => handleSelectedUser(currentUser.id)}
         />
       </div>
     </div>

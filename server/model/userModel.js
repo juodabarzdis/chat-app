@@ -1,7 +1,14 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-  username: {
+  firstName: {
+    type: String,
+    required: true,
+    min: 3,
+    max: 20,
+    unique: true,
+  },
+  lastName: {
     type: String,
     required: true,
     min: 3,
@@ -22,8 +29,13 @@ const userSchema = new mongoose.Schema({
     max: 50,
   },
   profilePicture: {
-    type: String,
+    name: String,
+    desc: String,
     default: "",
+    img: {
+      data: Buffer,
+      contentType: String,
+    },
   },
 });
 

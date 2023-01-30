@@ -7,8 +7,8 @@ const Welcome = (props) => {
   return (
     <div className={styles["welcome-container"]}>
       <div className={styles["welcome-container__content"]}>
-        <p>Welcome {currentUser && currentUser.username}!</p>
-        <p>Select user to chat.</p>
+        <p>Welcome, {currentUser && currentUser.firstName}!</p>
+        <p>Select a user to start chatting.</p>
       </div>
     </div>
   );

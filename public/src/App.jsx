@@ -2,9 +2,9 @@ import { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import { SocketProvider, SocketContext } from "./context/socketContext";
 
-import Login from "./pages/login";
-import Register from "./pages/register";
-import Chat from "./pages/chat";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Chat from "./pages/Chat";
 
 function App() {
   const socket = useContext(SocketContext);

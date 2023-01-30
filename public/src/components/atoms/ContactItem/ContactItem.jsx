@@ -1,16 +1,10 @@
 import React from "react";
 import styles from "./ContactItem.module.scss";
 import classNames from "classnames";
+import EmptyAvatar from "../../../assets/empty-avatar.jpg";
 
 const ContactItem = (props) => {
-  const {
-    selectedContact,
-    contactId,
-    onClickHandler,
-    profilePicture,
-    username,
-    onlineContacts,
-  } = props;
+  const { selectedContact, contact, onClickHandler, onlineContacts } = props;
 
   const selectedClass = (id) =>
     classNames(styles.contact, {
@@ -24,16 +18,18 @@ const ContactItem = (props) => {
     });
 
   return (
-    <div className={selectedClass(contactId)} onClick={onClickHandler}>
+    <div className={selectedClass(contact._id)} onClick={onClickHandler}>
       <div className={styles["picture-container"]}>
         <img
-          src={profilePicture}
+          src={contact.profilePicture ? contact.profilePicture : EmptyAvatar}
           alt="Avatar"
           className={styles["picture-container__avatar"]}
         />
-        <div className={onlineClass(contactId)}></div>
+        <div className={onlineClass(contact._id)}></div>
       </div>
-      <p className={styles["contact__name"]}>{username}</p>
+      <p className={styles["contact__name"]}>
+        {contact.firstName + " " + contact.lastName}
+      </p>
     </div>
   );
 };

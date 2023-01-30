@@ -3,11 +3,13 @@ import styles from "./Register.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { registerRoute } from "../../utils/APIRoutes";
+import Button from "../../components/atoms/Button";
 
 const Register = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
-    username: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     repeatPassword: "",
@@ -24,8 +26,7 @@ const Register = () => {
 
     Axios.post(registerRoute, form)
       .then((res) => {
-        console.log(res);
-        localStorage.setItem("chat-app-user", JSON.stringify(res.data));
+        localStorage.setItem("chat-app-user", JSON.stringify(res.data.user));
         navigate("/");
       })
       .catch((err) => {
@@ -41,20 +42,28 @@ const Register = () => {
   return (
     <div className={styles.section}>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="firstName">First name</label>
         <input
           type="text"
-          id="username"
-          name="username"
-          placeholder="Username"
+          id="firstName"
+          name="firstName"
+          placeholder="Enter your first name..."
           onChange={handleInputChange}
         />
-        <label htmlFor="email">Email</label>
+        <label htmlFor="lastName">Last name</label>
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          placeholder="Enter your first name..."
+          onChange={handleInputChange}
+        />
+        <label htmlFor="email">E-mail</label>
         <input
           type="email"
           id="email"
           name="email"
-          placeholder="E-mail"
+          placeholder="Enter your E-mail..."
           onChange={handleInputChange}
         />
         <label htmlFor="password">Password</label>
@@ -62,7 +71,7 @@ const Register = () => {
           type="password"
           id="password"
           name="password"
-          placeholder="Password"
+          placeholder="Enter password..."
           onChange={handleInputChange}
         />
         <label htmlFor="repeatPassword">Repeat password</label>
@@ -70,12 +79,12 @@ const Register = () => {
           type="password"
           id="repeatPassword"
           name="repeatPassword"
-          placeholder="Repeat password"
+          placeholder="Repeat password..."
           onChange={handleInputChange}
         />
-        <button type="submit">Register</button>
-        <span>
-          already have an account? <Link to="/login">Login</Link>
+        <Button theme="text">Register</Button>
+        <span className={styles["form__span"]}>
+          Already have an account? <Link to="/login">Login.</Link>
         </span>
       </form>
     </div>

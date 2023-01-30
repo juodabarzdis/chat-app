@@ -1,4 +1,5 @@
 import styles from "./ChatHeader.module.scss";
+import EmptyAvatar from "../../../assets/empty-avatar.jpg";
 
 const ChatHeader = ({ currentChat, handleSelectedUser }) => {
   return (
@@ -8,13 +9,17 @@ const ChatHeader = ({ currentChat, handleSelectedUser }) => {
         onClick={() => handleSelectedUser(currentChat._id)}
       >
         <img
-          src={currentChat.profilePicture}
+          src={
+            currentChat.profilePicture
+              ? currentChat.profilePicture
+              : EmptyAvatar
+          }
           alt="Avatar"
           className={styles["chat-header__avatar"]}
         />
       </button>
       <p className={styles["chat-header__header"]}>
-        {currentChat && currentChat.username}
+        {currentChat && currentChat.firstName + " " + currentChat.lastName}
       </p>
     </div>
   );

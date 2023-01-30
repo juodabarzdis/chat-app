@@ -26,6 +26,10 @@ const Chat = () => {
     if (currentUser) {
       socket.emit("add-user", currentUser._id);
     }
+
+    if (!currentChat) {
+      setSelectedUser(currentUser);
+    }
   }, [currentUser]);
 
   useEffect(() => {
@@ -94,6 +98,7 @@ const Chat = () => {
             chatChange={handlechatChange}
             handleInfo={handleInfo}
             handleSelectedUser={handleSelectedUser}
+            setSelectedUser={setSelectedUser}
           />
         </div>
         <div className={styles["chat-messages"]}>

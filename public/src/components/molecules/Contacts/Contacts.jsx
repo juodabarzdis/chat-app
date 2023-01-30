@@ -10,6 +10,7 @@ const Contacts = ({
   currentUser,
   chatChange,
   handleSelectedUser,
+  setSelectedUser,
 }) => {
   const [selectedContact, setSelectedContact] = useState(null);
   const [onlineContacts, setOnlineContacts] = useState([]);
@@ -23,6 +24,7 @@ const Contacts = ({
   const handleChatChange = (index, contact) => {
     setSelectedContact(index);
     chatChange(contact);
+    setSelectedUser(contact);
   };
 
   useEffect(() => {
@@ -53,6 +55,7 @@ const Contacts = ({
           </li>
         ))}
       </ul>
+      <Button>Logout</Button>
     </div>
   );
 };

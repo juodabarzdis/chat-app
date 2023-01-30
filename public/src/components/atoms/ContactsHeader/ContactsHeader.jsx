@@ -19,7 +19,6 @@ const ContactsHeader = ({
           search,
         },
       }).then((res) => {
-        console.log(res.data);
         setSearchResults(res.data);
       });
     } catch (error) {

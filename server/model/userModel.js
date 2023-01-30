@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import fs from "fs";
+import path from "path";
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -29,13 +31,8 @@ const userSchema = new mongoose.Schema({
     max: 50,
   },
   profilePicture: {
-    name: String,
-    desc: String,
+    type: String,
     default: "",
-    img: {
-      data: Buffer,
-      contentType: String,
-    },
   },
 });
 

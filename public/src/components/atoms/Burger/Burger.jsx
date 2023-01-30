@@ -3,7 +3,6 @@ import React from "react";
 import styles from "./Burger.module.scss";
 
 const Burger = ({ handleOpenContacts, openContacts }) => {
-  console.log(openContacts);
   const burgerClass = classNames(styles.burger, {
     [styles["burger--open"]]: openContacts,
   });

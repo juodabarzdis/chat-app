@@ -1,7 +1,6 @@
 import User from "../model/userModel.js";
 import bcrypt from "bcrypt";
 import fs from "fs";
-import { create } from "domain";
 
 export const register = async (req, res) => {
   const { firstName, lastName, email, password, repeatPassword } = req.body;
@@ -77,6 +76,31 @@ export const search = async (req, res) => {
       ],
     });
     res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const update = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(id, {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      profilePicture: "/uploads/" + req.file.filename,
+    });
+    res.status(200).json({
+      user: {
+        id: updatedUser._id,
+        firstName: updatedUser.firstName,
+        lastName: updatedUser.lastName,
+        email: updatedUser.email,
+        profilePicture: "/uploads/" + req.file.filename,
+      },
+      message: "Update successful.",
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

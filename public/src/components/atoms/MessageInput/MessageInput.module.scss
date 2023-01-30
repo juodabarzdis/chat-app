@@ -3,10 +3,10 @@
     display: flex;
     align-items: center;
     height: 4rem;
-    flex: 0 0 auto;
     width: 100%;
     padding: 1.5rem;
     background-color: $grey-medium;
+    flex: 0 0 auto;
 
     &__emoji {
         display: block;

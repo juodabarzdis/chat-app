@@ -10,6 +10,7 @@
     transition: background-color 0.2s ease-in-out;
 
 
+
     &--medium {
         min-width: 2.8rem;
         min-height: 2.8rem;
@@ -28,6 +29,13 @@
         svg {
             color: $theme;
         }
+    }
+
+    &--text {
+        border-radius: 0.5rem;
+        color: $white;
+        background-color: $theme-light;
+        width: 100%;
     }
 
     &:hover {

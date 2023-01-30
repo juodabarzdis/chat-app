@@ -1,9 +1,9 @@
 import { useState, useContext, useEffect } from "react";
-import Axios from "axios";
 import styles from "./Contacts.module.scss";
 import { SocketContext } from "../../../context/socketContext";
 import ContactsHeader from "../../atoms/ContactsHeader";
 import ContactItem from "../../atoms/ContactItem";
+import Button from "../../atoms/Button";
 
 const Contacts = ({
   contacts,
@@ -33,6 +33,15 @@ const Contacts = ({
     });
   }, [socket]);
 
+  const handleLogout = () => {
+    localStorage.removeItem("chat-app-user");
+    socket.on("disconnect", () => {
+      socket.off();
+    });
+
+    window.location.reload();
+  };
+
   return (
     <div className={styles["contacts-container"]}>
       <ContactsHeader
@@ -55,7 +64,11 @@ const Contacts = ({
           </li>
         ))}
       </ul>
-      <Button>Logout</Button>
+      <div className={styles["button-container"]}>
+        <Button onClick={handleLogout} theme="text">
+          Logout
+        </Button>
+      </div>
     </div>
   );
 };

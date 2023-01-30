@@ -4,7 +4,7 @@ import classNames from "classnames";
 import styles from "./Chat.module.scss";
 import { useNavigate } from "react-router-dom";
 import { usersRoute } from "../../utils/APIRoutes";
-import { SocketContext, SocketProvider } from "../../context/socketContext";
+import { SocketContext } from "../../context/socketContext";
 import Contacts from "../../components/molecules/Contacts";
 import Welcome from "../../components/atoms/Welcome";
 import ChatContainer from "../../components/organisms/ChatContainer";

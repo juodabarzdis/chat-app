@@ -13,7 +13,9 @@ import {
   FaVideo,
 } from "react-icons/fa";
 
-const Button = ({ icon, onClick, theme, size }) => {
+const Button = (props) => {
+  const { icon, onClick, theme, size, children } = props;
+
   const iconMap = {
     dots: <FaEllipsisV />,
     plus: <FaPlus />,
@@ -28,12 +30,13 @@ const Button = ({ icon, onClick, theme, size }) => {
 
   const buttonClass = classNames(styles.button, {
     [styles["button--secondary"]]: theme === "secondary",
+    [styles["button--text"]]: theme === "text",
     [styles["button--medium"]]: size === "medium",
   });
 
   return (
     <button className={buttonClass} onClick={onClick}>
-      {iconMap[icon]}
+      {iconMap[icon] ? iconMap[icon] : children}
     </button>
   );
 };

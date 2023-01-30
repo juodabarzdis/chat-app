@@ -4,8 +4,6 @@
     width: 100%;
     height: 100%;
 
-
-
     &::-webkit-scrollbar {
         width: 0.5em;
         background-color: $grey-medium;
@@ -21,9 +19,9 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    min-height: 36rem;
     width: 100%;
-
+    min-height: 100%;
+    height: fit-content;
 }
 
 .message-wrapper--sent {

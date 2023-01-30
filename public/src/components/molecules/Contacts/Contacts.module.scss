@@ -6,4 +6,23 @@
     border-radius: 0.5rem;
     height: 100%;
     width: 100%;
+    position: relative;
+
+    &>button {
+        bottom: 1rem;
+        left: 1.5rem;
+        width: 86%;
+        padding: 1rem;
+        background-color: $theme;
+    }
+}
+
+.button-container {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 1rem 1.5rem;
+    background-color: $theme;
+    z-index: 20;
 }

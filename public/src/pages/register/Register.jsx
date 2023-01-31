@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styles from "./Register.module.scss";
 import { Link, useNavigate } from "react-router-dom";
+import { MainContext } from "../../context/MainContext";
 import Axios from "axios";
 import { registerRoute } from "../../utils/APIRoutes";
 import Button from "../../components/atoms/Button";
@@ -14,9 +15,9 @@ const Register = () => {
     password: "",
     repeatPassword: "",
   });
-
+  const { user } = useContext(MainContext);
   useEffect(() => {
-    if (localStorage.getItem("chat-app-user")) {
+    if (user) {
       navigate("/");
     }
   }, [navigate]);

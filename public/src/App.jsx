@@ -1,7 +1,9 @@
-import { useContext, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { MainContext } from "./context/MainContext";
 import io from "socket.io-client";
+import Axios from "axios";
+import { checkAuthRoute } from "./utils/APIRoutes";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -11,6 +13,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [socket, setSocket] = useState(io("http://localhost:5000"));
 
+  const navigate = useNavigate();
   const value = {
     socket,
     setSocket,
@@ -18,7 +21,16 @@ function App() {
     setCurrentUser,
   };
 
-  console.log(currentUser);
+  useEffect(() => {
+    Axios.get(checkAuthRoute, { withCredentials: true })
+      .then((res) => {
+        setCurrentUser(res.data.user);
+        console.log(res.data.user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className="App">

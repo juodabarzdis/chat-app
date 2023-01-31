@@ -1,4 +1,6 @@
 import { useState, useContext, useEffect } from "react";
+import Axios from "axios";
+import { logoutRoute } from "../../../utils/APIRoutes";
 import styles from "./Contacts.module.scss";
 import { MainContext } from "../../../context/MainContext";
 import ContactsHeader from "../../atoms/ContactsHeader";
@@ -16,7 +18,7 @@ const Contacts = ({
   const [onlineContacts, setOnlineContacts] = useState([]);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const { socket } = useContext(MainContext);
+  const { socket, setCurrentUser } = useContext(MainContext);
 
   contacts = contacts.filter((contact) => contact._id !== currentUser.id);
   contacts = search.length > 0 ? searchResults : contacts;
@@ -34,7 +36,15 @@ const Contacts = ({
   }, [socket]);
 
   const handleLogout = () => {
-    localStorage.removeItem("chat-app-user");
+    Axios.get(logoutRoute, { withCredentials: true })
+      .then((res) => {
+        console.log(res);
+        setCurrentUser(null);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     socket.on("disconnect", () => {
       socket.off();
     });

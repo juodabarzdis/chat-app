@@ -1,6 +1,5 @@
 import User from "../model/userModel.js";
-import bcrypt from "bcrypt";
-import fs from "fs";
+import CryptoJS from "crypto-js";
 
 export const register = async (req, res) => {
   const { firstName, lastName, email, password, repeatPassword } = req.body;
@@ -9,7 +8,11 @@ export const register = async (req, res) => {
     return res.status(400).json({ message: "E-mail already exists." });
   if (password !== repeatPassword)
     return res.status(400).json({ message: "Passwords do not match." });
-  const hashedPassword = await bcrypt.hash(password, 12);
+  const hashedPassword = CryptoJS.AES.encrypt(
+    password,
+    process.env.CRYPTO_SECRET
+  ).toString();
+
   const newUser = new User({
     firstName,
     lastName,
@@ -40,21 +43,28 @@ export const login = async (req, res) => {
     return res
       .status(400)
       .json({ message: "E-mail or password is incorrect." });
-  const validPassword = await bcrypt.compare(password, loginUser.password);
+  const validPassword =
+    CryptoJS.AES.decrypt(
+      loginUser.password,
+      process.env.CRYPTO_SECRET
+    ).toString(CryptoJS.enc.Utf8) === password;
   if (!validPassword)
     return res
       .status(400)
       .json({ message: "E-mail or password is incorrect." });
-  res.status(200).json({
-    user: {
+  if (validPassword) {
+    req.session.user = {
       id: loginUser._id,
       firstName: loginUser.firstName,
       lastName: loginUser.lastName,
       email: loginUser.email,
       profilePicture: loginUser.profilePicture,
-    },
-    message: "Login successful.",
-  });
+    };
+    return res.status(200).json({
+      user: req.session.user,
+      message: "Login successful.",
+    });
+  }
 };
 
 export const users = async (req, res) => {
@@ -104,4 +114,13 @@ export const update = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+export const checkAuth = async (req, res) => {
+  return res.json(req.session.user);
+};
+
+export const logout = async (req, res) => {
+  req.session.destroy();
+  res.status(200).json({ message: "Logout successful." });
 };

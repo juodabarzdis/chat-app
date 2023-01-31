@@ -24,8 +24,9 @@ const Login = () => {
     const { email, password } = form;
     e.preventDefault();
 
-    Axios.post(loginRoute, { email, password })
+    Axios.post(loginRoute, { email, password }, { withCredentials: true })
       .then((res) => {
+        console.log(res);
         setCurrentUser(res.data.user);
         navigate("/");
       })

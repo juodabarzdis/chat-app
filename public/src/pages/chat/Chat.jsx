@@ -21,8 +21,6 @@ const Chat = () => {
 
   const { socket, currentUser, setCurrentUser } = useContext(MainContext);
 
-  console.log("currentUser", currentUser);
-
   useEffect(() => {
     if (currentUser) {
       socket.emit("add-user", currentUser._id);

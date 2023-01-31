@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
+import session from "express-session";
 
 import { Server } from "socket.io";
 
@@ -13,6 +14,21 @@ const app = express();
 dotenv.config();
 const port = process.env.PORT || 5000;
 const mongoUrl = process.env.MONGO_URL;
+
+app.use(
+  session({
+    name: "sid",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 2,
+      sameSite: true,
+      secure: false,
+    },
+    secret: process.env.SESSION_SECRET,
+  })
+);
+app.set("trust proxy", 1);
 
 app.use(
   cors({

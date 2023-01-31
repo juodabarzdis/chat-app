@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import styles from "./Login.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
+import { MainContext } from "../../context/MainContext";
 import { loginRoute } from "../../utils/APIRoutes";
 import Button from "../../components/atoms/Button";
 
 const Login = () => {
+  const { currentUser, setCurrentUser } = useContext(MainContext);
   const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
@@ -13,10 +15,10 @@ const Login = () => {
   });
 
   useEffect(() => {
-    if (localStorage.getItem("chat-app-user")) {
+    if (currentUser) {
       navigate("/");
     }
-  }, [navigate]);
+  }, [currentUser]);
 
   const handleSubmit = (e) => {
     const { email, password } = form;
@@ -24,7 +26,7 @@ const Login = () => {
 
     Axios.post(loginRoute, { email, password })
       .then((res) => {
-        localStorage.setItem("chat-app-user", JSON.stringify(res.data.user));
+        setCurrentUser(res.data.user);
         navigate("/");
       })
       .catch((err) => {

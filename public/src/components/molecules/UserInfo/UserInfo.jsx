@@ -9,7 +9,6 @@ import {
 } from "react-icons/fa";
 
 const UserInfo = ({ selectedUser, handleInfo }) => {
-  console.log(selectedUser);
   return (
     <div className={styles["info-container"]}>
       <div className={styles["info-container__return"]} onClick={handleInfo}>
@@ -19,7 +18,7 @@ const UserInfo = ({ selectedUser, handleInfo }) => {
         <img
           src={
             selectedUser?.profilePicture
-              ? selectedUser.profilePicture
+              ? `http://localhost:5000${selectedUser.profilePicture}`
               : EmptyAvatar
           }
           alt="Profile"

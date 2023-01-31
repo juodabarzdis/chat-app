@@ -14,13 +14,20 @@ dotenv.config();
 const port = process.env.PORT || 5000;
 const mongoUrl = process.env.MONGO_URL;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use("/api/auth", userRoutes);
 app.use("/api/messages", messageRoutes);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/uploads", express.static("uploads"));
 
 mongoose.set("strictQuery", false);
 mongoose

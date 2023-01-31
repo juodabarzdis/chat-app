@@ -1,23 +1,34 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { SocketProvider, SocketContext } from "./context/socketContext";
+import { MainContext } from "./context/MainContext";
+import io from "socket.io-client";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Chat from "./pages/Chat";
 
 function App() {
-  const socket = useContext(SocketContext);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [socket, setSocket] = useState(io("http://localhost:5000"));
+
+  const value = {
+    socket,
+    setSocket,
+    currentUser,
+    setCurrentUser,
+  };
+
+  console.log(currentUser);
 
   return (
     <div className="App">
-      <SocketProvider socket={socket}>
+      <MainContext.Provider value={value}>
         <Routes>
           <Route path="/" element={<Chat />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Routes>
-      </SocketProvider>
+      </MainContext.Provider>
     </div>
   );
 }

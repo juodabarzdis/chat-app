@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import styles from "./Contacts.module.scss";
-import { SocketContext } from "../../../context/socketContext";
+import { MainContext } from "../../../context/MainContext";
 import ContactsHeader from "../../atoms/ContactsHeader";
 import ContactItem from "../../atoms/ContactItem";
 import Button from "../../atoms/Button";
@@ -16,7 +16,7 @@ const Contacts = ({
   const [onlineContacts, setOnlineContacts] = useState([]);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const socket = useContext(SocketContext);
+  const { socket } = useContext(MainContext);
 
   contacts = contacts.filter((contact) => contact._id !== currentUser.id);
   contacts = search.length > 0 ? searchResults : contacts;

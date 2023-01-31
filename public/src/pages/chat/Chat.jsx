@@ -4,7 +4,7 @@ import classNames from "classnames";
 import styles from "./Chat.module.scss";
 import { useNavigate } from "react-router-dom";
 import { usersRoute } from "../../utils/APIRoutes";
-import { SocketContext } from "../../context/socketContext";
+import { MainContext } from "../../context/MainContext";
 import Contacts from "../../components/molecules/Contacts";
 import Welcome from "../../components/atoms/Welcome";
 import ChatContainer from "../../components/organisms/ChatContainer";
@@ -13,14 +13,15 @@ import Burger from "../../components/atoms/Burger";
 
 const Chat = () => {
   const [contacts, setContacts] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
   const [currentChat, setCurrentChat] = useState(null);
   const [openInfo, setOpenInfo] = useState(false);
   const [openContacts, setOpenContacts] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const navigate = useNavigate();
 
-  const socket = useContext(SocketContext);
+  const { socket, currentUser, setCurrentUser } = useContext(MainContext);
+
+  console.log("currentUser", currentUser);
 
   useEffect(() => {
     if (currentUser) {
@@ -33,15 +34,6 @@ const Chat = () => {
   }, [currentUser]);
 
   useEffect(() => {
-    if (!localStorage.getItem("chat-app-user")) {
-      navigate("/login");
-    } else {
-      const user = JSON.parse(localStorage.getItem("chat-app-user"));
-      setCurrentUser(user);
-    }
-  }, [navigate]);
-
-  useEffect(() => {
     if (currentUser) {
       Axios.get(usersRoute)
         .then((res) => {
@@ -50,6 +42,10 @@ const Chat = () => {
         .catch((err) => {
           console.log(err);
         });
+    }
+
+    if (!currentUser) {
+      navigate("/login");
     }
   }, [currentUser]);
 

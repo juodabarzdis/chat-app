@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import styles from "./ChatContainer.module.scss";
 import { addMessageRoute, getMessagesRoute } from "../../../utils/APIRoutes";
-import { SocketContext } from "../../../context/socketContext";
+import { MainContext } from "../../../context/MainContext";
 
 import MessageInput from "../../atoms/MessageInput";
 import Messages from "../../molecules/Messages";
@@ -12,7 +12,7 @@ const ChatContainer = (props) => {
   const { currentChat, currentUser, handleSelectedUser } = props;
   const [messages, setMessages] = useState([]);
   const [receivedMessages, setReceivedMessages] = useState(null);
-  const socket = useContext(SocketContext);
+  const { socket } = useContext(MainContext);
 
   useEffect(() => {
     if (currentChat) {

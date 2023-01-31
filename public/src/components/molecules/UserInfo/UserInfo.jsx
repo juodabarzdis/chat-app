@@ -18,7 +18,7 @@ const UserInfo = ({ selectedUser, handleInfo }) => {
         <img
           src={
             selectedUser?.profilePicture
-              ? `http://localhost:5000${selectedUser.profilePicture}`
+              ? selectedUser.profilePicture
               : EmptyAvatar
           }
           alt="Profile"

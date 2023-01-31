@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { MainContext } from "./context/MainContext";
+import { MainContext } from "./context/socketContext";
 import io from "socket.io-client";
 import Axios from "axios";
 import { checkAuthRoute } from "./utils/APIRoutes";

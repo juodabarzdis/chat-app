@@ -11,10 +11,19 @@ import userRoutes from "./routes/userRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 
 const app = express();
-dotenv.config();
-const port = process.env.PORT || 5000;
-const mongoUrl = process.env.MONGO_URL;
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+dotenv.config();
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
+app.set("trust proxy", 1);
 app.use(
   session({
     name: "sid",
@@ -28,22 +37,17 @@ app.use(
     secret: process.env.SESSION_SECRET,
   })
 );
-app.set("trust proxy", 1);
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
-app.use(express.json());
+const port = process.env.PORT || 5000;
+const mongoUrl = process.env.MONGO_URL;
+
 app.use("/api/auth", userRoutes);
 app.use("/api/messages", messageRoutes);
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
+
+const server = app.listen(port, () => {
+  console.log(`server started on port ${port}`);
+});
 
 mongoose.set("strictQuery", false);
 mongoose
@@ -57,10 +61,6 @@ mongoose
   .catch((error) => {
     console.log("Error connecting to MongoDB:", error.message);
   });
-
-const server = app.listen(port, () => {
-  console.log(`server started on port ${port}`);
-});
 
 const io = new Server(server, {
   cors: {

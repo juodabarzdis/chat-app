@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import Axios from "axios";
 import { logoutRoute } from "../../../utils/APIRoutes";
 import styles from "./Contacts.module.scss";
-import { MainContext } from "../../../context/MainContext";
+import { MainContext } from "../../../context/socketContext";
 import ContactsHeader from "../../atoms/ContactsHeader";
 import ContactItem from "../../atoms/ContactItem";
 import Button from "../../atoms/Button";

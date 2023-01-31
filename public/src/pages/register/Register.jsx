@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import styles from "./Register.module.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { MainContext } from "../../context/MainContext";
+import { MainContext } from "../../context/socketContext";
 import Axios from "axios";
 import { registerRoute } from "../../utils/APIRoutes";
 import Button from "../../components/atoms/Button";

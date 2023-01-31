@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import styles from "./ChatContainer.module.scss";
 import { addMessageRoute, getMessagesRoute } from "../../../utils/APIRoutes";
-import { MainContext } from "../../../context/MainContext";
+import { MainContext } from "../../../context/socketContext";
 
 import MessageInput from "../../atoms/MessageInput";
 import Messages from "../../molecules/Messages";

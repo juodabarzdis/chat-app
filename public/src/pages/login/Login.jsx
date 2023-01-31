@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import styles from "./Login.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { MainContext } from "../../context/MainContext";
+import { MainContext } from "../../context/socketContext";
 import { loginRoute } from "../../utils/APIRoutes";
 import Button from "../../components/atoms/Button";
 
